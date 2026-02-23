@@ -1,0 +1,19 @@
+# Terraform runtime files
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+
+# Secrets
+*.pem
+*.key
+.env
+terraform.tfvars
+
+# SSH
+id_rsa
+id_ed25519
+
+# OS / Editor
+.DS_Store
+.vscode/
