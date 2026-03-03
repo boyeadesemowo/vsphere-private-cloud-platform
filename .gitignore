@@ -15,6 +15,7 @@ crash.log
 .vscode/
 *.code-workspace
 
-# OS
+# OS & Temp
 .DS_Store
 Thumbs.db
+*.log
