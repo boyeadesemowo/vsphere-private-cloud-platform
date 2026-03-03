@@ -1,0 +1,24 @@
+#cloud-config
+
+hostname: tf-rhel-test-01
+fqdn: tf-rhel-test-01.local
+
+users:
+  - name: admin
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: wheel
+    shell: /bin/bash
+    lock_passwd: false
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEcjuteZ1W+Lg+nYOqvgyj1CMicXv13TWPD1amdK1mwh terraform-server
+
+package_update: true
+package_upgrade: true
+
+packages:
+  - vim
+  - git
+  - curl
+
+runcmd:
+  - systemctl enable --now sshd

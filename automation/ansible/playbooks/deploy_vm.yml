@@ -1,0 +1,56 @@
+---
+- name: Deploy RHEL 9 VM from Template
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars:
+    vcenter_hostname: "192.168.1.220"
+    vcenter_username: "administrator@vsphere.local"
+    vcenter_password: "Adedamola1!"
+    vcenter_validate_certs: false
+
+    vsphere_datacenter: "DC-HOMELAB"
+    vsphere_cluster: "CLS-NEST-01"
+    vsphere_datastore: "NFS-DATASTORE"
+    vsphere_network: "VM Network"
+
+    vm_template_name: "rhel9-golden"
+    new_vm_name: "tf-rhel-test-01"
+
+  tasks:
+
+    - name: Clone template to create new VM
+      community.vmware.vmware_guest:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: "{{ vcenter_validate_certs }}"
+
+        datacenter: "{{ vsphere_datacenter }}"
+        cluster: "{{ vsphere_cluster }}"
+        datastore: "{{ vsphere_datastore }}"
+        folder: "/{{ vsphere_datacenter }}/vm"
+
+        name: "{{ new_vm_name }}"
+        template: "{{ vm_template_name }}"
+        guest_id: "rhel9_64Guest"
+
+        linked_clone: false
+
+        disk:
+          - size_gb: 20
+            type: thin
+
+        networks:
+          - name: "{{ vsphere_network }}"
+            device_type: vmxnet3   # Changed from 'type' to 'device_type'
+
+        state: poweredon
+        wait_for_ip_address: false
+
+      register: vm_result
+
+    - name: Show result
+      debug:
+        msg: "VM '{{ new_vm_name }}' has been deployed. Check vCenter console."

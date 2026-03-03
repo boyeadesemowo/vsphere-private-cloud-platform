@@ -1,8 +1,0 @@
----
-- name: Baseline test playbook
-  hosts: linux
-  gather_facts: true
-  tasks:
-    - name: Show hostname
-      ansible.builtin.debug:
-        msg: "Hello from {{ inventory_hostname }}"

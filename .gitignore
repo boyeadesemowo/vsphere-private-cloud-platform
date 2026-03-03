@@ -1,29 +1,20 @@
-# Terraform runtime files
-.terraform/
-*.tfstate
-*.tfstate.*
-crash.log
-
-# Secrets
-*.pem
-*.key
-.env
-terraform.tfvars
-
-# SSH
-id_rsa
-id_ed25519
-
-# OS / Editor
-.DS_Store
-.vscode/
-
 # Terraform
-**/.terraform/*
 *.tfstate
 *.tfstate.*
-*.tfvars
 terraform.tfvars
 crash.log
-crash.*.log
+*.backup
+.terraform/
 .terraform.lock.hcl
+
+# Ansible
+*.retry
+.vault_pass
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# OS
+.DS_Store
+Thumbs.db

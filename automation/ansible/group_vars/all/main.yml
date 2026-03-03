@@ -1,0 +1,11 @@
+vcenter_hostname: "192.168.1.220"
+vcenter_username: "administrator@vsphere.local"
+vcenter_validate_certs: false
+vsphere_datacenter: "DC-HOMELAB"
+vsphere_cluster: "CLS-NEST-01"
+vsphere_datastore: "NFS-DATASTORE"
+vm_template_name: "rhel9-golden"
+new_vm_name: "ansible-rhel-test-01"
+vm_domain: "lab.local"
+vm_cpu_cores: 1
+vm_memory_mb: 2048
