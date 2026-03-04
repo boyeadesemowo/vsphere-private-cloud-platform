@@ -1,75 +1,103 @@
 # 🏗️ vSphere Private Cloud Platform
 
-![Ansible](https://img.shields.io/badge/Ansible-2.14-red?style=for-the-badge&logo=ansible) ![vSphere](https://img.shields.io/badge/VMware%20vSphere-8.0-blue?style=for-the-badge&logo=vmware) ![RHEL](https://img.shields.io/badge/RHEL-9-red?style=for-the-badge&logo=redhat)
-
 ![Lab Overview](screenshots/lab-overview.png)
 
-A fully automated **Nested ESXi Lab** built on VMware vSphere.
+A fully automated **Nested ESXi Lab** built on VMware vSphere using Terraform and Ansible.
 
 ---
 
-## 📋 Project Overview
-This project demonstrates the design, deployment, and operation of a self-hosted private cloud using nested virtualization on VMware vSphere.
+## 📌 Project Goal
 
-The environment emulates an enterprise data center architecture, including a clustered hypervisor, centralized storage, virtual networking, automation pipelines, and Linux server infrastructure — all running on a single physical host.
+This project showcases the design, deployment, and automation of a self-hosted private cloud using nested virtualization.
 
----
-
-## 🏛️ Architecture & Components
-- **Hypervisor Layer**: Nested ESXi cluster (`CLS-NEST-01`)
-- **Management Layer**: vCenter Server Appliance
-- **Storage Layer**: NFS Datastore (`NFS-DATASTORE`)
-- **Networking Layer**: Segmented networks (Management, vMotion, VM Network)
-- **Automation Layer**: Dedicated control node running Terraform and Ansible
-- **Guest OS**: Red Hat Enterprise Linux 9
+It emulates enterprise data center architecture — including clustered hypervisors, centralized storage, segmented networking, automation pipelines, and monitoring — all running on a single physical host.
 
 ---
 
-## ⚙️ Automation Stack & Journey
+## 🛠️ Tech Stack
 
-### **Terraform** (Initial Approach)
-Used for infrastructure provisioning via the vSphere API. However, a critical bug in the legacy `vmware/vsphere` v2.15 provider prevented reliable template cloning (VMs repeatedly booted with "Operating System not found").
-
-### **Ansible** (Successful Path)
-Migrated to Ansible's `community.vmware.vmware_guest` module, which proved stable and reliable for full template cloning and VM deployment. This repository preserves the full journey — from encountering the blocker to successfully pivoting to a working solution.
-
----
-
-## 🚀 Execution Workflow
-The primary workflow uses **Ansible** for reliable VM deployment.
-
-1.  **Preparation**: Configure underlying physical ESXi host and networking.
-2.  **Provisioning**: Use Ansible (`playbooks/deploy_vm.yml`) to deploy VMs from a template.
-3.  **Configuration**: (Future Goal) Apply post-boot Ansible playbooks for OS hardening and application installation.
-4.  **Validation**: Verify VM boot, networking, and functionality in vCenter.
+![Ansible](https://img.shields.io/badge/Ansible-2.14-red?style=for-the-badge&logo=ansible)
+![VMware vSphere](https://img.shields.io/badge/VMware%20vSphere-8.0-blue?style=for-the-badge&logo=vmware)
+![RHEL](https://img.shields.io/badge/RHEL-9-red?style=for-the-badge&logo=redhat)
+![Terraform](https://img.shields.io/badge/Terraform-1.14-blue?style=for-the-badge&logo=terraform)
 
 ---
 
-## 🛠️ Challenges & Solutions
+## 📁 Repository Structure
 
-- **Challenge**: Terraform template cloning bug.
-- **Solution**: Diagnosed that the provider was replacing the bootable OS disk with an empty one. Pivoted to Ansible for reliable deployment.
+```bash
+vsphere-private-cloud-platform/
+├── automation/
+│   ├── terraform/     # VM provisioning
+│   └── ansible/       # OS & application configuration
+├── docs/              # Architecture & guides
+├── lab/               # Nested ESXi lab documentation
+├── operations/        # Monitoring & operations
+├── screenshots/       # Visual documentation
+├── README.md
+└── .gitignore
 
-- **Challenge**: Legacy guest customization timeouts on RHEL 9.
-- **Solution**: Adopted a clean, full-clone method in Ansible, deferring complex configuration to post-deployment plays.
+✨ Key Features
 
----
+    Automated VM deployment from golden templates
+    Secure first-boot configuration with Cloud-Init
+    Idempotent configuration using Ansible
+    Repeatable and version-controlled infrastructure
+    Real-world troubleshooting documented
+
+## 🚀 Quick Start
+
+**Prerequisites:**
+- Ensure SSH key-based authentication is configured for `root@192.168.1.76`.
+- Verify connectivity: `ssh root@192.168.1.76 "hostname"`
+
+**Deployment Steps:**
+
+```bash
+# 1. Deploy VM Infrastructure
+cd automation/terraform
+terraform init
+terraform apply
+
+# 2. Configure OS & Applications
+cd ../ansible
+ansible-playbook -i inventory.ini playbooks/deploy.yml
+
+## ✅ Verification
+
+Infrastructure access has been verified via secure SSH keys:
+```powershell
+PS> ssh root@192.168.1.76 "hostname"
+tf-rhel-test-01
+
+📸 Screenshots
 
 ## 📸 Screenshots
-- [vCenter Inventory](screenshots/vcenter-inventory.png)
-- [Deployed VM Console](screenshots/rhel9-console.png)
-- [Ansible Playbook Execution](screenshots/ansible-run.png)
 
----
+- **[vCenter Inventory](screenshots/vcenter-inventory.png)**: Overview of the nested ESXi cluster and VMs.
+- **[RHEL 9 Console](screenshots/rhel-console.png)**: Initial OS boot and network configuration.
+- **[VS Code Remote SSH](screenshots/vscode-ssh-access.png)**: Verified passwordless SSH access from local workstation to `tf-rhel-test-01` (192.168.1.76).
+- **[Ansible Execution](screenshots/ansible-run.png)**: Successful playbook run configuring Git and demo directories.
 
-## 📚 Documentation
-- [High-Level Architecture](docs/high-level.md)
-- [Automation Guide](docs/automation.md)
-- [Nested ESXi Lab Setup](lab/nested-esxi/)
+🏆 Skills Demonstrated
 
----
+    Virtualization Administration (vSphere, ESXi, Nested Virtualization)
+    Infrastructure as Code (Terraform)
+    Configuration Management (Ansible)
+    Advanced Troubleshooting & Tool Migration
+    Linux Systems Administration (RHEL 9)
+    Professional Documentation & Version Control
 
-## 🏆 Author
+📚 Documentation
 
-**Boye Adesemowo**
-*Linux • Cloud • DevOps • Platform Engineering*
+    High-Level Architecture
+    Automation Guide
+    Nested ESXi Lab Setup
+
+Built as a learning project to showcase real-world infrastructure automation and problem-solving.
+
+Last updated: March 2025
+
+Author: Boye Adesemowo
+Focus: Linux • Cloud • DevOps • Platform Engineering
+
