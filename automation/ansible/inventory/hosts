@@ -1,1 +1,7 @@
-localhost
+[all]
+# Add your VM IP here after deployment
+tf-rhel-test-01 ansible_host=CHANGEME_IP
+
+[all:vars]
+ansible_user=admin
+ansible_ssh_private_key_file=~/.ssh/id_ed25519

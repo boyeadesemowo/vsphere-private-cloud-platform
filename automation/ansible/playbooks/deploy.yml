@@ -1,0 +1,20 @@
+---
+- name: Deploy and Configure RHEL 9 VM
+  hosts: all
+  become: yes
+  tasks:
+    - name: Ensure git is installed
+      dnf:
+        name: git
+        state: present
+
+    - name: Create a demo directory
+      file:
+        path: /opt/ansible-demo
+        state: directory
+        mode: '0755'
+
+    - name: Create a welcome file
+      copy:
+        content: "Configured successfully by Ansible!"
+        dest: /opt/ansible-demo/welcome.txt
