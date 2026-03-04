@@ -72,12 +72,19 @@ tf-rhel-test-01
 
 📸 Screenshots
 
+
 ## 📸 Screenshots
 
-- **[vCenter Inventory](screenshots/vcenter-inventory.png)**: Overview of the nested ESXi cluster and VMs.
-- **[RHEL 9 Console](screenshots/rhel-console.png)**: Initial OS boot and network configuration.
-- **[VS Code Remote SSH](screenshots/vscode-ssh-access.png)**: Verified passwordless SSH access from local workstation to `tf-rhel-test-01` (192.168.1.76).
-- **[Ansible Execution](screenshots/ansible-run.png)**: Successful playbook run configuring Git and demo directories.
+### vCenter Inventory – Nested ESXi Cluster
+![vCenter Inventory](screenshots/vcenter-inventory.png)
+### RHEL Console
+![RHEL Console](screenshots/rhel-console.png) *Initial OS boot and network configuration.*
+
+### VS Code Remote SSH
+![VS Code Remote SSH](screenshots/vscode-ssh-access.png) *Verified passwordless SSH access from your local workstation, you can administer all servers directly from VS Code, no clunky vSphere web console required.*
+
+### Ansible Execution
+![Ansible Run](screenshots/ansible-run.png) *Successful playbook run configuring Git and demo directories.*
 
 🏆 Skills Demonstrated
 
