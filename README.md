@@ -86,6 +86,11 @@ tf-rhel-test-01
 ### Ansible Execution
 ![Ansible Run](screenshots/ansible-run.png) *Successful playbook run configuring Git and demo directories.*
 
+### 📊 Monitoring & Observability
+The platform is monitored via **Zabbix**, tracking host availability, resource usage, and service health across all 7 nodes.
+![Zabbix Dashboard](screenshots/zabbix-dashboard.png)
+*Global view showing host availability, trigger severity, and active problem tracking.*
+
 🏆 Skills Demonstrated
 
     Virtualization Administration (vSphere, ESXi, Nested Virtualization)
